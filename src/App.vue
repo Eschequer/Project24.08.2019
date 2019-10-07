@@ -1,52 +1,43 @@
 <template>
   <div id="app">
-    <h2>Quotes added</h2>
-    <progression-bar :quotes="quotes"></progression-bar>
-    <quote-adder :quotes="quotes"></quote-adder>
-    <added-quotes :quotes="quotes" @delete:quote="deleteQuote">
-      <p class="info">Info: Click on a Quote to delete it</p>
-    </added-quotes>
+    <h1>The Super Quiz</h1>
+    <hr>
+    <transition name="flip" mode="out-in" appear>
+      <component :is="correctAnswer ? 'answer-card' : 'question-card'"
+                 @setCorrectAnswer="correctAnswer = $event"
+
+      ></component>
+    </transition>
   </div>
 </template>
 
 <script>
-import ProgressionBar from "./components/ProgressionBar";
-import QuoteAdder from "./components/QuoteAdder";
-import AddedQuotes from "./components/AddedQuotes";
+  import QuestionCard from "./components/QuestionCard";
+  import AnswerCard from "./components/AnswerCard";
 
-export default {
-    name: 'app',
-    components: {
-        ProgressionBar,
-        QuoteAdder,
-        AddedQuotes
-    },
-    data () {
-        return {
-            quotes: []
+    export default {
+        name: 'app',
+        components: {
+            QuestionCard,
+            AnswerCard
+        },
+        data () {
+            return {
+              correctAnswer: false
+            }
+        },
+        computed: {
+
+        },
+        methods: {
+
+        },
+        created() {
+            console.log(`App is created`);
         }
-    },
-    methods: {
-      deleteQuote(element) {
-          this.quotes.splice(element, 1);
-      }
     }
-}
 </script>
 
-<style lang="scss" >
-  * {
-    box-sizing: border-box;
-  }
-  div#app {
-    display: grid;
-    width: 80%;
-    margin: 10px auto;
-    grid-template-columns: auto;
-    grid-gap: 5px;
-
-  }
-
-
+<style lang="scss" src="./App.scss">
 
 </style>
